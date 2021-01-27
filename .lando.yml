@@ -1,0 +1,7 @@
+name: spa-crud-backend
+recipe: symfony
+config:
+  webroot: ./public
+  xdebug: true
+  conf:
+    php: .vscode/php.ini
