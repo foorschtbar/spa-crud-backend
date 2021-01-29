@@ -1,5 +1,0 @@
-/vendor
-/var
-/.vscode
-/Dockerfile
-docker-compose.yml

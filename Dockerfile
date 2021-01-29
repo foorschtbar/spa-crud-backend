@@ -2,18 +2,19 @@ FROM php:7.4-apache
 
 # install packages via apt-get
 RUN set -eux; \
-  apt-get update; \
-  apt-get install -y --no-install-recommends \
-        unzip \
-        git \
-  ; \
-  rm -rf /var/lib/apt/lists/*
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+    unzip \
+    git \
+    ; \
+    rm -rf /var/lib/apt/lists/*
 
 # install php extensions
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 RUN set -eux; \
     install-php-extensions \
-        opcache \
+    opcache \
+    pdo_mysql \
     ; \
     rm /usr/local/bin/install-php-extensions
 
@@ -29,13 +30,13 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 WORKDIR /var/www/html
 
 # install composer dependencies
-COPY build/composer.json build/composer.lock ./
+COPY composer.json composer.lock ./
 COPY --from=composer /usr/bin/composer /usr/local/bin/
 RUN set -eux; \
     composer install --no-dev --no-progress
 
 # copy application files
-COPY . .
+COPY ./code ./
 RUN set -eux; \
     composer dump-autoload --classmap-authoritative; \
     rm /usr/local/bin/composer
@@ -43,3 +44,8 @@ RUN set -eux; \
 # additional binaries
 ENV PATH="/var/www/html/bin:${PATH}"
 RUN chmod +x bin/*
+
+# docker entrypoint
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT [ "sh", "/entrypoint.sh" ]
+CMD ["apache2-foreground"]
