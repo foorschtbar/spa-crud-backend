@@ -75,7 +75,7 @@ class ApiController
      */
     public function respondValidationError($violations = 'Validation errors')
     {
-        if ($violations instanceof ConstraintViolationList) {
+        if ($violations instanceof \Symfony\Component\Validator\ConstraintViolationList) {
             foreach ($violations as $violation) {
                 $message[] = $violation->getMessage();
             }

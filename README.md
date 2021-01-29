@@ -15,3 +15,4 @@
 
 ## Other
 * https://developer.okta.com/blog/2018/08/23/symfony-react-php-crud-app
+* https://www.fakenamegenerator.com/gen-random-gr-gr.php
