@@ -1,4 +1,5 @@
 debug.log
+docker-compose.yml
 
 ###> symfony/framework-bundle ###
 /.env.local
