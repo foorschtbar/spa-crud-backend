@@ -1,5 +1,4 @@
 debug.log
-.env*
 
 ###> symfony/framework-bundle ###
 /.env.local
