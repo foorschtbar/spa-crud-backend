@@ -48,9 +48,14 @@ class MemberController extends ApiController
         $member = new Member;
         $member->setFirstname(trim($request->get('firstname')));
         $member->setLastname(trim($request->get('lastname')));
-        $member->setEmail(trim($request->get('email')));
-        $member->setPhone(trim($request->get('phone')));
-        $member->setAddress(trim($request->get('address')));
+        (!empty(trim($request->get('email'))) ? $member->setEmail(trim($request->get('email'))) : "");
+        (!empty(trim($request->get('phone'))) ? $member->setPhone(trim($request->get('phone'))) : "");
+        $member->setCity(trim($request->get('city')));
+        $member->setStreet(trim($request->get('street')));
+        (!empty(trim($request->get('birthday'))) ? $member->setBirthday(
+            new \DateTime(trim($request->get('birthday'))) // validation missing
+        ) : "");
+        
 
         $violations = $validator->validate($member);
 
@@ -78,9 +83,12 @@ class MemberController extends ApiController
 
         $member->setFirstname(trim($request->get('firstname')));
         $member->setLastname(trim($request->get('lastname')));
-        $member->setEmail(trim($request->get('email')));
+        (!empty(trim($request->get('email'))) ? $member->setEmail(trim($request->get('email'))) : "");
+        (!empty(trim($request->get('phone'))) ? $member->setPhone(trim($request->get('phone'))) : "");
         $member->setPhone(trim($request->get('phone')));
-        $member->setAddress(trim($request->get('address')));
+        $member->setCity(trim($request->get('city')));
+        $member->setStreet(trim($request->get('street')));
+        $member->setBirthday(trim($request->get('birthday')));
 
         $violations = $validator->validate($member);
 

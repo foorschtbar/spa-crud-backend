@@ -57,10 +57,11 @@ class ApiController
      *
      * @return Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function respondWithErrors($errors, $headers = [])
+    public function respondWithErrors($errors, $errorfields = [], $headers = [])
     {
         $data = [
             'errors' => $errors,
+            'errorfields' =>  $errorfields,
         ];
 
         return new JsonResponse($data, $this->getStatusCode(), $headers);
@@ -79,11 +80,18 @@ class ApiController
             foreach ($violations as $violation) {
                 $message[] = $violation->getMessage();
             }
+            foreach ($violations as $violation) {
+                if(property_exists($violation->getConstraint(), 'payload')) {
+                    foreach ($violation->getConstraint()->payload as $payload) {
+                        $errorfields[] = $payload;
+                    }
+                }
+            }
         } else {
             $message = $violations;
         }
 
-        return $this->setStatusCode(422)->respondWithErrors($message);
+        return $this->setStatusCode(422)->respondWithErrors($message, $errorfields ?? []);
     }
 
     /**

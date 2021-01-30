@@ -27,7 +27,9 @@ class MemberRepository extends ServiceEntityRepository
             'lastname' => (string) $member->getLastname(),
             'phone' => (string) $member->getPhone(),
             'email' => (string) $member->getEmail(),
-            'address' => (string) $member->getAddress()
+            'city' => (string) $member->getCity(),
+            'street' => (string) $member->getStreet(),
+            'birthday' => (string) $member->getBirthday()->format('Y-m-d')
         ];
     }
 

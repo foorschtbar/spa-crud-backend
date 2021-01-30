@@ -33,17 +33,27 @@ class Member
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $address;
+    private $city;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $email;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $street;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $birthday;
 
     public function getId(): ?int
     {
@@ -74,14 +84,14 @@ class Member
         return $this;
     }
 
-    public function getAddress(): ?string
+    public function getCity(): ?string
     {
-        return $this->address;
+        return $this->city;
     }
 
-    public function setAddress(string $address): self
+    public function setCity(string $city): self
     {
-        $this->address = $address;
+        $this->city = $city;
 
         return $this;
     }
@@ -105,6 +115,7 @@ class Member
 
     public function setEmail(string $email): self
     {
+        var_dump($email);
         $this->email = $email;
 
         return $this;
@@ -115,28 +126,66 @@ class Member
         # https://symfony.com/doc/current/reference/constraints/UniqueEntity.html
         $metadata->addConstraint(new UniqueEntity([
             'fields' => ['firstname', 'lastname'],
-            'message' => 'Member already exists.',
+            'message' => 'Member already exists!',
+            'payload' => ['firstname', 'lastname']
         ]));
 
         $metadata->addConstraint(new UniqueEntity([
             'fields' => ['email'],
-            'message' => 'The email {{ value }} is already in use.',
+            'message' => 'The email {{ value }} is already in use!',
+            'payload' => ['email']
         ]));
 
         # https://symfony.com/doc/current/reference/constraints/NotBlank.html
         $metadata->addPropertyConstraint('firstname', new Assert\NotBlank([
-            'message' => 'Please provide a Firstname!'
+            'message' => 'Please provide a Firstname!',
+            'payload' => ['firstname']
         ]));
         $metadata->addPropertyConstraint('lastname', new Assert\NotBlank([
-            'message' => 'Please provide a Lastname!'
+            'message' => 'Please provide a Lastname!',
+            'payload' => ['lastname']
         ]));
-        $metadata->addPropertyConstraint('address', new Assert\NotBlank([
-            'message' => 'Please provide a Address!'
+        $metadata->addPropertyConstraint('city', new Assert\NotBlank([
+            'message' => 'Please provide a City!',
+            'payload' => ['city']
+        ]));
+        $metadata->addPropertyConstraint('street', new Assert\NotBlank([
+            'message' => 'Please provide a Street!',
+            'payload' => ['street']
+        ]));
+        $metadata->addPropertyConstraint('birthday', new Assert\NotBlank([
+            'message' => 'Please provide a Birthday!',
+            'payload' => ['birthday']
         ]));
 
         # https://symfony.com/doc/current/reference/constraints/Email.html
         $metadata->addPropertyConstraint('email', new Assert\Email([
-            'message' => 'The email {{ value }} is not a valid email.'
+            'message' => 'The email {{ value }} is not a valid email!',
+            'payload' => ['email']
         ]));
+    }
+
+    public function getStreet(): ?string
+    {
+        return $this->street;
+    }
+
+    public function setStreet(?string $street): self
+    {
+        $this->street = $street;
+
+        return $this;
+    }
+
+    public function getBirthday(): ?\DateTimeInterface
+    {
+        return $this->birthday;
+    }
+
+    public function setBirthday(\DateTimeInterface $birthday): self
+    {
+        $this->birthday = $birthday;
+
+        return $this;
     }
 }

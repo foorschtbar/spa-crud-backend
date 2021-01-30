@@ -30,10 +30,10 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 WORKDIR /var/www/html
 
 # install composer dependencies
-COPY composer.json composer.lock ./
+COPY ./code/composer.json ./code/composer.lock ./
 COPY --from=composer /usr/bin/composer /usr/local/bin/
 RUN set -eux; \
-    composer install --no-dev --no-progress
+    composer install --no-progress
 
 # copy application files
 COPY ./code ./
@@ -46,6 +46,6 @@ ENV PATH="/var/www/html/bin:${PATH}"
 RUN chmod +x bin/*
 
 # docker entrypoint
-COPY entrypoint.sh /entrypoint.sh
+COPY ./.docker/entrypoint.sh /entrypoint.sh
 ENTRYPOINT [ "sh", "/entrypoint.sh" ]
 CMD ["apache2-foreground"]
