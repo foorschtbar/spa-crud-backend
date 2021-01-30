@@ -20,8 +20,9 @@ The backend stores a Members entity in a relational database.
 
 Create `.env.local` file
 ```
-DATABASE_URL="mysql://symfony:symfony@db:3306/symfony?serverVersion=mariadb-10.5.6"
+DATABASE_URL="mysql://username:password@db:3306/database?serverVersion=mariadb-10.5.6"
 APP_ENV=prod
+CORS_ALLOW_ORIGIN='^https?:\/\/(localhost|127\.0\.0\.1)(:[0-9]+)?$'
 ```
 
 Example `docker-compose.yml`
