@@ -101,7 +101,7 @@ class Member
         return $this->phone;
     }
 
-    public function setPhone(string $phone): self
+    public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
 
@@ -113,7 +113,7 @@ class Member
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
