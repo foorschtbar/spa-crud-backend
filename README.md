@@ -12,6 +12,7 @@ The backend stores a Members entity in a relational database.
 ## API-Entpoints
 
 * List all Members `GET /api/members`
+* Search Member `GET /api/members/{lastname}`
 * Add new Member `POST /api/member`
 * Update Member `POST /api/member/{id}`
 * Delete Member `DELETE /api/member/{id}`

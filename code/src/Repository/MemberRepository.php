@@ -33,9 +33,7 @@ class MemberRepository extends ServiceEntityRepository
         ];
     }
 
-    public function transformAll()
-    {
-        $members = $this->findAll();
+    public function transformArray(Array $members) {
         $allmembers = [];
 
         foreach ($members as $member) {
@@ -45,22 +43,28 @@ class MemberRepository extends ServiceEntityRepository
         return $allmembers;
     }
 
-    // /**
-    //  * @return Member[] Returns an array of Member objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function transformAll()
+    {
+        $members = $this->findAll();
+        return $this->transformArray($members);
+    }
+
+    public function transformSearch($field, $value) {
+        $members = $this->findByField($field, $value);
+        return $this->transformArray($members);
+    }
+
+    public function findByField($field, $value)
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('m.'.$field.' LIKE :val')
+            ->setParameter('val', '%'.$value.'%')
             ->orderBy('m.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
+            ->getResult();
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Member

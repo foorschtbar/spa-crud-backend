@@ -14,9 +14,20 @@ class MemberController extends ApiController
     /**
      * @Route("/api/members", methods="GET")
      */
-    public function index(MemberRepository $memberRepository)
+    public function list(Request $request, MemberRepository $memberRepository)
     {
+
         $members = $memberRepository->transformAll();
+
+        return $this->respond($members);
+    }
+
+    /**
+     * @Route("/api/members/{lastname}", methods="GET")
+     */
+    public function search(Request $request, MemberRepository $memberRepository)
+    {
+        $members = $memberRepository->transformSearch("lastname", $request->get("lastname"));
 
         return $this->respond($members);
     }
