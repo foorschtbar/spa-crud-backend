@@ -88,7 +88,9 @@ class MemberController extends ApiController
         $member->setPhone(trim($request->get('phone')));
         $member->setCity(trim($request->get('city')));
         $member->setStreet(trim($request->get('street')));
-        $member->setBirthday(trim($request->get('birthday')));
+        (!empty(trim($request->get('birthday'))) ? $member->setBirthday(
+            new \DateTime(trim($request->get('birthday'))) // validation missing
+        ) : "");
 
         $violations = $validator->validate($member);
 

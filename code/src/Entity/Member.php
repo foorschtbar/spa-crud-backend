@@ -115,7 +115,6 @@ class Member
 
     public function setEmail(string $email): self
     {
-        var_dump($email);
         $this->email = $email;
 
         return $this;
@@ -160,7 +159,7 @@ class Member
 
         # https://symfony.com/doc/current/reference/constraints/Email.html
         $metadata->addPropertyConstraint('email', new Assert\Email([
-            'message' => 'The email {{ value }} is not a valid email!',
+            'message' => 'The email is not a valid email!',
             'payload' => ['email']
         ]));
     }
