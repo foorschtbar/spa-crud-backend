@@ -131,7 +131,7 @@ class Member
 
         $metadata->addConstraint(new UniqueEntity([
             'fields' => ['email'],
-            'message' => 'The email {{ value }} is already in use!',
+            'message' => 'The eMail {{ value }} is already in use!',
             'payload' => ['email']
         ]));
 
@@ -159,7 +159,7 @@ class Member
 
         # https://symfony.com/doc/current/reference/constraints/Email.html
         $metadata->addPropertyConstraint('email', new Assert\Email([
-            'message' => 'The email is not a valid email!',
+            'message' => 'The eMail {{ value }} is not a valid!',
             'payload' => ['email']
         ]));
     }

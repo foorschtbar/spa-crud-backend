@@ -94,8 +94,8 @@ class MemberController extends ApiController
 
         $member->setFirstname(trim($request->get('firstname')));
         $member->setLastname(trim($request->get('lastname')));
-        (!empty(trim($request->get('email'))) ? $member->setEmail(trim($request->get('email'))) : "");
-        (!empty(trim($request->get('phone'))) ? $member->setPhone(trim($request->get('phone'))) : "");
+        $member->setEmail(trim($request->get('email')) !== "" ? trim($request->get('email')) : null);
+        $member->setPhone(trim($request->get('phone')) !== "" ? trim($request->get('phone')) : null);
         $member->setPhone(trim($request->get('phone')));
         $member->setCity(trim($request->get('city')));
         $member->setStreet(trim($request->get('street')));
