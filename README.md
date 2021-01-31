@@ -9,7 +9,7 @@ A demo REST backend with the four basic functions of persistent storage (CRUD):
 
 The backend stores all data in a relational database and provides a JSON based REST API.
 
-## API-Entpoints
+## API-Endpoints
 
 | Function          | Methode       | URL |
 | :-------------    | :----------:  | -----------: |
